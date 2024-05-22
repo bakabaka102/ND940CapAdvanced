@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+                                                       
+                                                   
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.android.politicalpreparedness.MainActivity" android:tag="layout/fragment_launch_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+
+        <!-- TODO: Add image for home screen logo. -->
+
+        <!-- TODO: Add Button to navigate to upcoming elections. -->
+
+        <!-- TODO: Add Button to navigate to representatives. -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+         
