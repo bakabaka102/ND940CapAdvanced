@@ -12,15 +12,19 @@ import java.util.Locale
 
 class DetailFragment : Fragment() {
 
+    private lateinit var mContext: Context
+
     companion object {
         //TODO: Add Constant for Location request
     }
 
     //TODO: Declare ViewModel
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         //TODO: Establish bindings
 
@@ -32,7 +36,16 @@ class DetailFragment : Fragment() {
 
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         //TODO: Handle location permission result to get location on permission granted
     }
@@ -46,7 +59,7 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private fun isPermissionGranted() : Boolean {
+    private fun isPermissionGranted(): Boolean {
         //TODO: Check if permission is already granted and return (true = granted, false = denied/other)
     }
 
@@ -55,13 +68,17 @@ class DetailFragment : Fragment() {
         //TODO: The geoCodeLocation method is a helper function to change the lat/long location to a human readable street address
     }
 
-    private fun geoCodeLocation(location: Location): Address {
-        val geocoder = Geocoder(context, Locale.getDefault())
-        return geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                .map { address ->
-                    Address(address.thoroughfare, address.subThoroughfare, address.locality, address.adminArea, address.postalCode)
-                }
-                .first()
+    private fun geoCodeLocation(location: Location): Address? {
+        val geocoder = context?.let { Geocoder(it, Locale.getDefault()) }
+        return geocoder?.getFromLocation(location.latitude, location.longitude, 1)?.map { address ->
+            Address(
+                address.thoroughfare,
+                address.subThoroughfare,
+                address.locality,
+                address.adminArea,
+                address.postalCode
+            )
+        }?.first()
     }
 
     private fun hideKeyboard() {
