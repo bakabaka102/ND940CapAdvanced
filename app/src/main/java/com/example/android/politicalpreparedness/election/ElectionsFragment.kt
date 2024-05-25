@@ -25,16 +25,18 @@ class ElectionsFragment : BaseFragment<FragmentElectionBinding>() {
         //DONE: Populate recycler adapters
 
         upcomingElectionAdapter = ElectionListAdapter(ElectionListener {
-            findNavController().navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it)
-            )
-        })
+            /*findNavController().navigate(
+                ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it)
+            )*/
+        }
+        )
 
         mFragmentBinding.upcomingElectionsRecyclerView.adapter = upcomingElectionAdapter
 
         savedElectionAdapter = ElectionListAdapter(ElectionListener {
-            findNavController().navigate(
+           /* findNavController().navigate(
                 ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it)
-            )
+            )*/
         })
 
         mFragmentBinding.savedElectionsRecyclerView.adapter = savedElectionAdapter

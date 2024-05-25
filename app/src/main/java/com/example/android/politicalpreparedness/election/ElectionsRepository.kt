@@ -41,7 +41,7 @@ class ElectionsRepository(application: Application) {
     }
 
     suspend fun insertElection(election: Election) {
-        LogUtils.i("Election.isSaved: ${election.isSaved}")
+        LogUtils.i("Election.isSaved: ${election.saved}")
         withContext(Dispatchers.IO) {
             database.electionDao.insertElection(election)
         }

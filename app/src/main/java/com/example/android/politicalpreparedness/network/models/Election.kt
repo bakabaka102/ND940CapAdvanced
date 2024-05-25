@@ -1,10 +1,16 @@
 package com.example.android.politicalpreparedness.network.models
 
-import androidx.room.*
-import com.squareup.moshi.*
-import java.util.*
+import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.squareup.moshi.Json
+import kotlinx.parcelize.Parcelize
+import java.util.Date
 
 @Entity(tableName = "election_table")
+@Parcelize
 data class Election(
     @PrimaryKey val id: Int,
     @ColumnInfo(name = "name")
@@ -15,5 +21,5 @@ data class Election(
     @Json(name = "ocdDivisionId")
     val division: Division,
     @ColumnInfo(name = "saved")
-    val saved: Boolean,
-)
+    val saved: Boolean = false,
+) : Parcelable
