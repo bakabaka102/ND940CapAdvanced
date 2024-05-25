@@ -7,10 +7,14 @@ import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import com.example.android.politicalpreparedness.R
+import com.example.android.politicalpreparedness.basecontent.BaseFragment
+import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Address
+import com.example.android.politicalpreparedness.utils.isAccessFineLocation
 import java.util.Locale
 
-class DetailFragment : Fragment() {
+class RepresentativeFragment : BaseFragment<FragmentRepresentativeBinding>() {
 
     private lateinit var mContext: Context
 
@@ -19,27 +23,34 @@ class DetailFragment : Fragment() {
     }
 
     //TODO: Declare ViewModel
+    //TODO: Establish bindings
+    //TODO: Define and assign Representative adapter
+    //TODO: Populate Representative adapter
+    //TODO: Establish button listeners for field and location search
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        //TODO: Establish bindings
-
-        //TODO: Define and assign Representative adapter
-
-        //TODO: Populate Representative adapter
-
-        //TODO: Establish button listeners for field and location search
-
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
     }
+
+    override fun initData(data: Bundle?) {
+
+    }
+
+    override fun initViews() {
+
+    }
+
+    override fun initActions() {
+
+    }
+
+    override fun initObservers() {
+
+    }
+
+    override fun layoutViewDataBinding(): Int = R.layout.fragment_representative
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -51,16 +62,12 @@ class DetailFragment : Fragment() {
     }
 
     private fun checkLocationPermissions(): Boolean {
-        return if (isPermissionGranted()) {
+        return if (mContext.isAccessFineLocation()) {
             true
         } else {
             //TODO: Request Location permissions
             false
         }
-    }
-
-    private fun isPermissionGranted(): Boolean {
-        //TODO: Check if permission is already granted and return (true = granted, false = denied/other)
     }
 
     private fun getLocation() {

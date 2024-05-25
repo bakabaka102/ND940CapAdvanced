@@ -1,31 +1,33 @@
 package com.example.android.politicalpreparedness.launch
 
 import android.os.Bundle
-import android.view.*
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.android.politicalpreparedness.R
+import com.example.android.politicalpreparedness.basecontent.BaseFragment
 import com.example.android.politicalpreparedness.databinding.FragmentLaunchBinding
-import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
-import com.example.android.politicalpreparedness.election.adapter.ElectionListener
 
-class LaunchFragment : Fragment() {
+class LaunchFragment : BaseFragment<FragmentLaunchBinding>() {
+    override fun layoutViewDataBinding(): Int = R.layout.fragment_launch
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val binding = FragmentLaunchBinding.inflate(inflater)
-        binding.lifecycleOwner = this
+    override fun initData(data: Bundle?) {
+        mFragmentBinding.lifecycleOwner = this
+    }
 
-        binding.
-        representativeButton.setOnClickListener { navToRepresentatives() }
-        binding.upcomingButton.setOnClickListener { navToElections() }
+    override fun initViews() {
 
-        return binding.root
+    }
+
+    override fun initActions() {
+        mFragmentBinding.representativeButton.setOnClickListener {
+            navToRepresentatives()
+        }
+        mFragmentBinding.upcomingButton.setOnClickListener {
+            navToElections()
+        }
+    }
+
+    override fun initObservers() {
+
     }
 
     private fun navToElections() {

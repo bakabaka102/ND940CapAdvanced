@@ -23,29 +23,28 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="@{@string/election_name(election.name)}"
         android:foreground="?selectableItemBackground"
         android:onClick="@{()->listener.onClickListener(election)}"
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/election_item_name"
+            android:id="@+id/electionItemName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{election.name}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@tools:sample/lorem[3]" />
+            tools:text="Name" />
 
         <TextView
-            android:id="@+id/election_item_date"
+            android:id="@+id/electionItemDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{dateFormatter.format(election.electionDay)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/election_item_name"
-            tools:text="@tools:sample/lorem[3]" />
+            app:layout_constraintTop_toBottomOf="@+id/electionItemName"
+            tools:text="Election date" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

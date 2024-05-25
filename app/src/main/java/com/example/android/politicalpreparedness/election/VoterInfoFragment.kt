@@ -5,30 +5,44 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.android.politicalpreparedness.R
+import com.example.android.politicalpreparedness.basecontent.BaseFragment
+import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
 
-class VoterInfoFragment : Fragment() {
+class VoterInfoFragment : BaseFragment<FragmentVoterInfoBinding>() {
+    override fun layoutViewDataBinding(): Int = R.layout.fragment_voter_info
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?)
-    : View? {
 
-        // TODO: Add ViewModel values and create ViewModel
+    // TODO: Add ViewModel values and create ViewModel
 
-        // TODO: Add binding values
+    // TODO: Add binding values
 
-        // TODO: Populate voter info -- hide views without provided data.
+    // TODO: Populate voter info -- hide views without provided data.
 
-        /**
-        Hint: You will need to ensure proper data is provided from previous fragment.
-        */
+    /**
+    Hint: You will need to ensure proper data is provided from previous fragment.
+     */
 
-        // TODO: Handle loading of URLs
+    // TODO: Handle loading of URLs
 
-        // TODO: Handle save button UI state
-        // TODO: cont'd Handle save button clicks
-        return null
+    // TODO: Handle save button UI state
+    // TODO: cont'd Handle save button clicks
+
+
+    override fun initData(data: Bundle?) {
+
+    }
+
+    override fun initViews() {
+
+    }
+
+    override fun initActions() {
+
+    }
+
+    override fun initObservers() {
+
     }
 
     // TODO: Create method to load URL intents
