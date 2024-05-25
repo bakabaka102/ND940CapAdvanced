@@ -6,11 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.politicalpreparedness.databinding.ViewholderElectionBinding
-import com.example.android.politicalpreparedness.election.models.ElectionModel
 import com.example.android.politicalpreparedness.network.models.Election
 
 class ElectionListAdapter(private val clickListener: ElectionListener) :
-    ListAdapter<ElectionModel, ElectionListAdapter.ElectionViewHolder>(ElectionDiffCallback()) {
+    ListAdapter<Election, ElectionListAdapter.ElectionViewHolder>(ElectionDiffCallback()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ElectionViewHolder {
@@ -18,8 +17,8 @@ class ElectionListAdapter(private val clickListener: ElectionListener) :
     }
 
     override fun onBindViewHolder(holder: ElectionViewHolder, position: Int) {
-        val electionModel = getItem(position)
-        holder.bindDataToView(electionModel, clickListener)
+        val election = getItem(position)
+        holder.bindDataToView(election, clickListener)
     }
 
     class ElectionViewHolder(val binding: ViewholderElectionBinding) :
@@ -35,24 +34,24 @@ class ElectionListAdapter(private val clickListener: ElectionListener) :
             )
         }
 
-        fun bindDataToView(electionModel: ElectionModel, listener: ElectionListener) {
-            binding.election = electionModel
+        fun bindDataToView(election: Election, listener: ElectionListener) {
+            binding.election = election
             binding.listener = listener
             binding.executePendingBindings()
         }
     }
 }
 
-class ElectionDiffCallback : DiffUtil.ItemCallback<ElectionModel>() {
-    override fun areItemsTheSame(oldItem: ElectionModel, newItem: ElectionModel): Boolean {
+class ElectionDiffCallback : DiffUtil.ItemCallback<Election>() {
+    override fun areItemsTheSame(oldItem: Election, newItem: Election): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: ElectionModel, newItem: ElectionModel): Boolean {
+    override fun areContentsTheSame(oldItem: Election, newItem: Election): Boolean {
         return oldItem == newItem
     }
 }
 
-class ElectionListener(val clickListener: (electionModel: ElectionModel) -> Unit) {
-    fun onClickListener(electionModel: ElectionModel) = clickListener(electionModel)
+class ElectionListener(val clickListener: (election: Election) -> Unit) {
+    fun onClickListener(election: Election) = clickListener(election)
 }

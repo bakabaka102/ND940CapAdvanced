@@ -3,13 +3,14 @@
     <string name="app_name">Political Preparedness</string>
     <string name="launch_logo_description">Logo of Election</string>
     <string name="launch_upcoming_elections">Upcoming Elections</string>
-    <string name="upcoming_elections">Upcoming Election</string>
+    <string name="upcoming_elections">Upcoming Elections</string>
     <string name="launch_representatives_button">Button of Representatives</string>
     <string name="representatives_button">Representatives</string>
     <string name="representative_fb">%s facebook page</string>
     <string name="representative_twitter">%s twitted</string>
     <string name="representative_www">%s web page</string>
     <string name="representative_no">%s from %s</string>
+    <string name="saved_elections_header">Saved elections</string>
 
 
 </resources>

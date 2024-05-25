@@ -1,9 +1,23 @@
 package com.example.android.politicalpreparedness.election
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
-//TODO: Construct ViewModel and provide election datasource
-class ElectionsViewModel: ViewModel() {
+class ElectionsViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val repository = ElectionsRepository(application)
+    val upcomingElections = repository.elections
+    val savedElections = repository.savedElections
+
+
+    init {
+        viewModelScope.launch {
+            repository.refreshElections()
+        }
+    }
+
 
     //TODO: Create live data val for upcoming elections
 

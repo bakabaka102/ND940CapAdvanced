@@ -23,6 +23,7 @@ fun ElectionModel.toElection() =
         name = name,
         electionDay = electionDay,
         division = division,
+        saved = saved
     )
 
 

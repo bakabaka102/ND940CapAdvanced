@@ -60,8 +60,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_kotlin_coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$version_kotlin_serialization"
 
-    // Constraint Layout
+    // Layout
     implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
@@ -84,7 +85,7 @@ dependencies {
     implementation "com.squareup.moshi:moshi-adapters:$version_moshi"
 
     // Glide
-    // TODO: Add Glide Implementation
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
 
     // Room
     implementation "androidx.room:room-runtime:$version_room"

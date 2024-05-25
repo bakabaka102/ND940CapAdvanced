@@ -9,7 +9,7 @@
 
         <variable
             name="election"
-            type="com.example.android.politicalpreparedness.election.models.ElectionModel" />
+            type="com.example.android.politicalpreparedness.network.models.Election" />
 
         <variable
             name="listener"

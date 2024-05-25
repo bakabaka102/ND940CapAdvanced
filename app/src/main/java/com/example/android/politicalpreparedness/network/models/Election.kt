@@ -13,5 +13,7 @@ data class Election(
     val electionDay: Date,
     @Embedded(prefix = "division_")
     @Json(name = "ocdDivisionId")
-    val division: Division
+    val division: Division,
+    @ColumnInfo(name = "saved")
+    val saved: Boolean,
 )
