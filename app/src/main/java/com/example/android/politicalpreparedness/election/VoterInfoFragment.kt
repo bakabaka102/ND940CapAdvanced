@@ -13,7 +13,6 @@ import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBi
 class VoterInfoFragment : BaseFragment<FragmentVoterInfoBinding>() {
 
     private val mViewModel: VoterInfoViewModel by viewModels()
-
     //private val args by navArgs()
     private val navArgs: VoterInfoFragmentArgs by navArgs()
 

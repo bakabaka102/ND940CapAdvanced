@@ -1,7 +1,6 @@
 package com.example.android.politicalpreparedness.election
 
 import android.app.Application
-import android.text.TextUtils
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
@@ -32,7 +31,7 @@ class VoterInfoViewModel(private val application: Application) : AndroidViewMode
     }
 
 
-    fun SaveElection(election: Election) {
+    fun saveElection(election: Election) {
         election.saved = !election.saved
         viewModelScope.launch {
             electionsRepository.insertElection(election)

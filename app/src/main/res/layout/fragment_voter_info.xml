@@ -90,7 +90,19 @@
             app:layout_constraintStart_toStartOf="@id/election_date"
             app:layout_constraintTop_toBottomOf="@id/state_correspondence_header" />
 
-        <!-- TODO: Add button to save election to Room -->
-
+        <Button
+            android:id="@+id/btnSaveElection"
+            style="@style/TextAppearance.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_16dp"
+            android:background="@color/colorPrimary"
+            android:onClick="@{() -> viewModel.saveElection(viewModel.election)}"
+            android:text="@{(!viewModel.election.saved) ? @string/follow : @string/unfollow}"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="@string/follow" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

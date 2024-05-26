@@ -10,8 +10,11 @@
     <string name="representative_twitter">%s twitted</string>
     <string name="representative_www">%s web page</string>
     <string name="representative_no">%s from %s</string>
-    <string name="saved_elections_header">Saved elections</string>
     <string name="election_information">Election Information</string>
+
+    <string name="follow">Follow Election</string>
+    <string name="unfollow">Unfollow Election</string>
+    <string name="saved_elections">Saved Elections</string>
 
 
 </resources>

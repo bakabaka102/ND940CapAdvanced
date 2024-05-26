@@ -5,8 +5,6 @@
 
     <data>
 
-        <import type="java.text.DateFormat" />
-
         <variable
             name="election"
             type="com.example.android.politicalpreparedness.network.models.Election" />
@@ -15,9 +13,6 @@
             name="listener"
             type="com.example.android.politicalpreparedness.election.adapter.ElectionListener" />
 
-        <variable
-            name="dateFormatter"
-            type="DateFormat" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,13 +20,14 @@
         android:layout_height="wrap_content"
         android:foreground="?selectableItemBackground"
         android:onClick="@{()->listener.onClickListener(election)}"
-        android:padding="16dp">
+        android:padding="@dimen/dimen_16dp">
 
         <TextView
             android:id="@+id/electionItemName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{election.name}"
+            android:textSize="@dimen/dimen_16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -41,7 +37,8 @@
             android:id="@+id/electionItemDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{dateFormatter.format(election.electionDay)}"
+            android:text="@{election.electionDay.toString()}"
+            android:textSize="@dimen/dimen_14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/electionItemName"
