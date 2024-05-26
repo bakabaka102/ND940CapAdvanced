@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Political Preparedness</string>
+    <string name="launch_logo_description">Logo of Election</string>
+    <string name="launch_upcoming_elections">Upcoming Elections</string>
+    <string name="upcoming_elections">Upcoming Elections</string>
+    <string name="launch_representatives_button">Button of Representatives</string>
+    <string name="representatives_button">Representatives</string>
+    <string name="representative_fb">%s facebook page</string>
+    <string name="representative_twitter">%s twitted</string>
+    <string name="representative_www">%s web page</string>
+    <string name="representative_no">%s from %s</string>
+    <string name="election_information">Election Information</string>
 
-    <!-- TODO: Add necessary string values -->
+    <string name="follow">Follow Election</string>
+    <string name="unfollow">Unfollow Election</string>
+    <string name="saved_elections">Saved Elections</string>
+
 
 </resources>

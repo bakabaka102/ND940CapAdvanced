@@ -7,38 +7,62 @@ import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import com.example.android.politicalpreparedness.R
+import com.example.android.politicalpreparedness.basecontent.BaseFragment
+import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Address
+import com.example.android.politicalpreparedness.utils.isAccessFineLocation
 import java.util.Locale
 
-class DetailFragment : Fragment() {
+class RepresentativeFragment : BaseFragment<FragmentRepresentativeBinding>() {
+
+    private lateinit var mContext: Context
 
     companion object {
         //TODO: Add Constant for Location request
     }
 
     //TODO: Declare ViewModel
+    //TODO: Establish bindings
+    //TODO: Define and assign Representative adapter
+    //TODO: Populate Representative adapter
+    //TODO: Establish button listeners for field and location search
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
 
-        //TODO: Establish bindings
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+    }
 
-        //TODO: Define and assign Representative adapter
-
-        //TODO: Populate Representative adapter
-
-        //TODO: Establish button listeners for field and location search
+    override fun initData(data: Bundle?) {
 
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun initViews() {
+
+    }
+
+    override fun initActions() {
+
+    }
+
+    override fun initObservers() {
+
+    }
+
+    override fun layoutViewDataBinding(): Int = R.layout.fragment_representative
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         //TODO: Handle location permission result to get location on permission granted
     }
 
     private fun checkLocationPermissions(): Boolean {
-        return if (isPermissionGranted()) {
+        return if (mContext.isAccessFineLocation()) {
             true
         } else {
             //TODO: Request Location permissions
@@ -46,22 +70,22 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private fun isPermissionGranted() : Boolean {
-        //TODO: Check if permission is already granted and return (true = granted, false = denied/other)
-    }
-
     private fun getLocation() {
         //TODO: Get location from LocationServices
         //TODO: The geoCodeLocation method is a helper function to change the lat/long location to a human readable street address
     }
 
-    private fun geoCodeLocation(location: Location): Address {
-        val geocoder = Geocoder(context, Locale.getDefault())
-        return geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                .map { address ->
-                    Address(address.thoroughfare, address.subThoroughfare, address.locality, address.adminArea, address.postalCode)
-                }
-                .first()
+    private fun geoCodeLocation(location: Location): Address? {
+        val geocoder = context?.let { Geocoder(it, Locale.getDefault()) }
+        return geocoder?.getFromLocation(location.latitude, location.longitude, 1)?.map { address ->
+            Address(
+                address.thoroughfare,
+                address.subThoroughfare,
+                address.locality,
+                address.adminArea,
+                address.postalCode
+            )
+        }?.first()
     }
 
     private fun hideKeyboard() {
