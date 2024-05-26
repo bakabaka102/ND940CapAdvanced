@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import androidx.core.content.getSystemService
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.basecontent.BaseFragment
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
@@ -25,7 +26,7 @@ class RepresentativeFragment : BaseFragment<FragmentRepresentativeBinding>() {
 
     private val mViewModel: RepresentativeViewModel by viewModels()
     private lateinit var mContext: Context
-    //private lateinit var representativeAdapter: RepresentativeListAdapter
+    private lateinit var representativeAdapter: RepresentativeListAdapter
 
     companion object {
         //TODO: Add Constant for Location request
@@ -47,7 +48,7 @@ class RepresentativeFragment : BaseFragment<FragmentRepresentativeBinding>() {
         mFragmentBinding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = mViewModel
-            //executePendingBindings()
+            executePendingBindings()
         }
     }
 
@@ -55,11 +56,13 @@ class RepresentativeFragment : BaseFragment<FragmentRepresentativeBinding>() {
         loadStates()
         /*mFragmentBinding.address =
             Address("Amphitheatre Parkway", "1600", "Mountain View", "California", "94043")*/
-        /*representativeAdapter = RepresentativeListAdapter(RepresentativeListener {
+        representativeAdapter = RepresentativeListAdapter(RepresentativeListener {
 
-        })*/
+        })
         mFragmentBinding.representativesRecyclerView.adapter =
             RepresentativeListAdapter(RepresentativeListener {})
+        val linearLayoutManager = GridLayoutManager(requireActivity(), 1)
+        mFragmentBinding.representativesRecyclerView.layoutManager = linearLayoutManager
         //mFragmentBinding.representativesRecyclerView.adapter = representativeAdapter
     }
 
@@ -89,15 +92,14 @@ class RepresentativeFragment : BaseFragment<FragmentRepresentativeBinding>() {
                 LogUtils.d("Address buttonLocation click: ==== $it")
             }
             ToastUtils.showToast(requireActivity(), "ButtonLocation clicked")
-            //mViewModel.loadRepresentatives()
             checkLocationPermissions()
         }
     }
 
     override fun initObservers() {
-        /*mViewModel.representatives.observe(viewLifecycleOwner) { representatives ->
+        mViewModel.representatives.observe(viewLifecycleOwner) { representatives ->
             representativeAdapter.submitList(representatives)
-        }*/
+        }
         mViewModel.errorMessage.observe(viewLifecycleOwner) {
             Snackbar.make(mFragmentBinding.root, it, Snackbar.LENGTH_SHORT).show()
         }

@@ -18,13 +18,15 @@
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutDescription="@xml/fragment_representative_scene">
+        motion:ignore="MotionLayoutInvalidSceneFileReference">
 
         <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/search_title"
+            style="@style/HeaderTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/representative_search"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -147,6 +149,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/representativeTitle"
             motion:visibilityMode="ignore"
-            tools:visibility="visible" />
+            tools:visibility="gone" />
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>
