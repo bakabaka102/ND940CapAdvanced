@@ -8,6 +8,7 @@ import com.example.android.politicalpreparedness.basecontent.BaseFragment
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
 import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
 import com.example.android.politicalpreparedness.election.adapter.ElectionListener
+import com.example.android.politicalpreparedness.network.models.Election
 
 class ElectionsFragment : BaseFragment<FragmentElectionBinding>() {
 
@@ -22,26 +23,15 @@ class ElectionsFragment : BaseFragment<FragmentElectionBinding>() {
     }
 
     override fun initViews() {
-        upcomingElectionAdapter = ElectionListAdapter(
-            ElectionListener {
-                findNavController().navigate(
-                    ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it)
-                )
-            }
-        )
+        initUpcomingAdapter()
+        initSavedAdapter()
+    }
 
-        mFragmentBinding.upcomingElectionsRecyclerView.adapter = upcomingElectionAdapter
+    override fun initActions() {
 
-        savedElectionAdapter = ElectionListAdapter(
-            ElectionListener {
-                findNavController().navigate(
-                    ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it)
-                )
-            })
+    }
 
-        mFragmentBinding.savedElectionsRecyclerView.adapter = savedElectionAdapter
-
-
+    override fun initObservers() {
         mViewModel.upcomingElections.observe(viewLifecycleOwner) { elections ->
             elections?.apply {
                 upcomingElectionAdapter.submitList(elections)
@@ -55,11 +45,26 @@ class ElectionsFragment : BaseFragment<FragmentElectionBinding>() {
         }
     }
 
-    override fun initActions() {
-
+    private fun initSavedAdapter() {
+        savedElectionAdapter = ElectionListAdapter(
+            ElectionListener {
+                navigateToVoterFragment(it)
+            })
+        mFragmentBinding.savedElectionsRecyclerView.adapter = savedElectionAdapter
     }
 
-    override fun initObservers() {
+    private fun initUpcomingAdapter() {
+        upcomingElectionAdapter = ElectionListAdapter(
+            ElectionListener {
+                navigateToVoterFragment(it)
+            }
+        )
+        mFragmentBinding.upcomingElectionsRecyclerView.adapter = upcomingElectionAdapter
+    }
 
+    private fun navigateToVoterFragment(it: Election) {
+        findNavController().navigate(
+            ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it)
+        )
     }
 }
