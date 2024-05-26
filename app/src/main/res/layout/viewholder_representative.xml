@@ -21,7 +21,7 @@
         android:onClick="@{()->listener.onClick(representative)}">
 
         <ImageView
-            android:id="@+id/representativeImage"
+            android:id="@+id/representativePhoto"
             profileImage="@{representative.official.photoUrl}"
             android:layout_width="64dp"
             android:layout_height="64dp"
@@ -42,7 +42,7 @@
             android:text="@{representative.office.name}"
             android:textColor="?colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/representativeImage"
+            app:layout_constraintStart_toEndOf="@+id/representativePhoto"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_goneMarginEnd="16dp"
             tools:text='@tools:sample/lorem[19]' />

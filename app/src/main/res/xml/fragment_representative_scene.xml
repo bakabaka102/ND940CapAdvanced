@@ -98,8 +98,27 @@
             app:layout_constraintBottom_toBottomOf="@+id/representative_recycler"
             app:layout_constraintEnd_toEndOf="@+id/representative_recycler"
             app:layout_constraintStart_toStartOf="@+id/representative_recycler"
-            app:layout_constraintTop_toTopOf="@id/representative_recycler"
-            app:visibilityMode="ignore" />
+            app:layout_constraintTop_toTopOf="@id/representative_recycler" />
+        <Constraint
+            android:id="@+id/representativeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/button_location"
+            app:layout_constraintStart_toStartOf="parent" />
+        <Constraint
+            android:id="@+id/list_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/representativeTitle" />
+        <Constraint
+            android:id="@+id/representative_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/dimen_24dp"
+            app:layout_constraintTop_toBottomOf="@id/button_location" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
@@ -206,6 +225,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/representative_title" />
+        <Constraint
+            android:id="@+id/representativeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/button_location"
+            app:layout_constraintStart_toStartOf="parent" />
+        <Constraint
+            android:id="@+id/list_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/representativeTitle" />
     </ConstraintSet>
 
     <Transition

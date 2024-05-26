@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.example.android.politicalpreparedness.utils.ToastUtils
 
 abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), IBaseFragment {
 
@@ -37,6 +38,7 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), IBaseFragment {
     override fun onDestroyView() {
         super.onDestroyView()
         _mFragmentBinding = null
+        ToastUtils.cancelToast()
     }
 
 }

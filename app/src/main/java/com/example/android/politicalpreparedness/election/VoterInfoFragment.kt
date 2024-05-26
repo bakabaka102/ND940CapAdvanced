@@ -53,10 +53,10 @@ class VoterInfoFragment : BaseFragment<FragmentVoterInfoBinding>() {
     }
 
     override fun initObservers() {
-        mViewModel.Url.observe(viewLifecycleOwner, Observer {
+        mViewModel.Url.observe(viewLifecycleOwner) {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
             startActivity(intent)
-        })
+        }
     }
 
 }

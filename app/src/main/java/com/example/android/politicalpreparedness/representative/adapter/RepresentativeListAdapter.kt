@@ -14,6 +14,7 @@ import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.ViewholderRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Channel
 import com.example.android.politicalpreparedness.representative.model.Representative
+import com.example.android.politicalpreparedness.utils.LogUtils
 
 class RepresentativeListAdapter(
     private val clickListener: RepresentativeListener
@@ -24,7 +25,9 @@ class RepresentativeListAdapter(
     }
 
     override fun onBindViewHolder(holder: RepresentativeViewHolder, position: Int) {
-        val item = getItem(position)
+        val item = getItem(position).also {
+            LogUtils.d("Get Item in adapter: $it")
+        }
         holder.bind(item, clickListener)
     }
 }
@@ -36,7 +39,7 @@ class RepresentativeViewHolder(
     fun bind(item: Representative, clickListener: RepresentativeListener) {
         binding.representative = item
         binding.listener = clickListener
-        binding.representativeImage.setImageResource(R.drawable.ic_profile)
+        binding.representativePhoto.setImageResource(R.drawable.ic_profile)
         showSocialLinks(item.official.channels.orEmpty())
         showWWWLinks(item.official.urls.orEmpty())
         binding.executePendingBindings()
