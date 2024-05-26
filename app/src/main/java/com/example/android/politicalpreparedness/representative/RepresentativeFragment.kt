@@ -4,9 +4,9 @@ import android.content.Context
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.ArrayAdapter
-import android.widget.Toast
+import android.widget.AdapterView
 import androidx.core.content.getSystemService
 import androidx.fragment.app.viewModels
 import com.example.android.politicalpreparedness.R
@@ -15,15 +15,17 @@ import com.example.android.politicalpreparedness.databinding.FragmentRepresentat
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListener
+import com.example.android.politicalpreparedness.utils.LogUtils
 import com.example.android.politicalpreparedness.utils.ToastUtils
 import com.example.android.politicalpreparedness.utils.isAccessFineLocation
+import com.google.android.material.snackbar.Snackbar
 import java.util.Locale
 
 class RepresentativeFragment : BaseFragment<FragmentRepresentativeBinding>() {
 
     private val mViewModel: RepresentativeViewModel by viewModels()
     private lateinit var mContext: Context
-    private lateinit var representativeAdapter: RepresentativeListAdapter
+    //private lateinit var representativeAdapter: RepresentativeListAdapter
 
     companion object {
         //TODO: Add Constant for Location request
@@ -45,42 +47,59 @@ class RepresentativeFragment : BaseFragment<FragmentRepresentativeBinding>() {
         mFragmentBinding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = mViewModel
+            //executePendingBindings()
         }
     }
 
     override fun initViews() {
         loadStates()
-        mFragmentBinding.address =
-            Address("Amphitheatre Parkway", "1600", "Mountain View", "California", "94043")
-        representativeAdapter = RepresentativeListAdapter(RepresentativeListener {
+        /*mFragmentBinding.address =
+            Address("Amphitheatre Parkway", "1600", "Mountain View", "California", "94043")*/
+        /*representativeAdapter = RepresentativeListAdapter(RepresentativeListener {
 
-        })
-        mFragmentBinding.representativesRecyclerView.adapter = representativeAdapter
+        })*/
+        mFragmentBinding.representativesRecyclerView.adapter =
+            RepresentativeListAdapter(RepresentativeListener {})
+        //mFragmentBinding.representativesRecyclerView.adapter = representativeAdapter
     }
 
     private fun loadStates() {
-        val states = resources.getStringArray(R.array.states)
+        /*val states = resources.getStringArray(R.array.states)
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, states)
-        mFragmentBinding.state.adapter = adapter
+        mFragmentBinding.state.adapter = adapter*/
+        mFragmentBinding.state.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    mViewModel.fillState(requireContext().resources.getStringArray(R.array.states)[position])
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+            }
     }
 
     override fun initActions() {
         mFragmentBinding.buttonLocation.setOnClickListener {
+            mViewModel.addressData.value.also {
+                LogUtils.d("Address buttonLocation click: ==== $it")
+            }
             ToastUtils.showToast(requireActivity(), "ButtonLocation clicked")
-            mViewModel.loadRepresentatives()
+            //mViewModel.loadRepresentatives()
             checkLocationPermissions()
-        }
-
-        mFragmentBinding.buttonSearch.setOnClickListener {
-            ToastUtils.showToast(requireActivity(), "Search clicked")
-            hideKeyboard()
-            mViewModel.loadRepresentatives()
         }
     }
 
     override fun initObservers() {
-        mViewModel.representatives.observe(viewLifecycleOwner) { representatives ->
+        /*mViewModel.representatives.observe(viewLifecycleOwner) { representatives ->
             representativeAdapter.submitList(representatives)
+        }*/
+        mViewModel.errorMessage.observe(viewLifecycleOwner) {
+            Snackbar.make(mFragmentBinding.root, it, Snackbar.LENGTH_SHORT).show()
         }
     }
 

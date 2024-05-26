@@ -48,7 +48,7 @@ interface CivicsApiService {
     @GET(APIConstants.REPRESENTATIVES)
     suspend fun getRepresentatives(
         @Query("address", encoded = true) address: String,
-    ): Deferred<RepresentativeResponse>
+    ): RepresentativeResponse
 }
 
 object CivicsApi {
