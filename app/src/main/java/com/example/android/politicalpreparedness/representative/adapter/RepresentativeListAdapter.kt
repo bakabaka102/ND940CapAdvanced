@@ -36,7 +36,7 @@ class RepresentativeViewHolder(
     fun bind(item: Representative, clickListener: RepresentativeListener) {
         binding.representative = item
         binding.listener = clickListener
-        binding.representativeImage.setImageResource(R.drawable.ic_profile)
+        binding.representativePhoto.setImageResource(R.drawable.ic_profile)
         showSocialLinks(item.official.channels.orEmpty())
         showWWWLinks(item.official.urls.orEmpty())
         binding.executePendingBindings()

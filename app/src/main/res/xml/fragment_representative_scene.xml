@@ -83,7 +83,7 @@
             app:layout_constraintStart_toStartOf="@+id/address_line_1"
             app:layout_constraintTop_toBottomOf="@id/button_location" />
         <Constraint
-            android:id="@+id/representative_recycler"
+            android:id="@+id/representativesRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -95,10 +95,10 @@
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/representative_recycler"
-            app:layout_constraintEnd_toEndOf="@+id/representative_recycler"
-            app:layout_constraintStart_toStartOf="@+id/representative_recycler"
-            app:layout_constraintTop_toTopOf="@id/representative_recycler"
+            app:layout_constraintBottom_toBottomOf="@+id/representativesRecyclerView"
+            app:layout_constraintEnd_toEndOf="@+id/representativesRecyclerView"
+            app:layout_constraintStart_toStartOf="@+id/representativesRecyclerView"
+            app:layout_constraintTop_toTopOf="@id/representativesRecyclerView"
             app:visibilityMode="ignore" />
     </ConstraintSet>
 
@@ -199,7 +199,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         <Constraint
-            android:id="@+id/representative_recycler"
+            android:id="@+id/representativesRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -216,9 +216,9 @@
             app:dragDirection="dragUp"
             app:moveWhenScrollAtTop="true"
             app:onTouchUp="autoComplete"
-            app:touchAnchorId="@+id/representative_recycler"
+            app:touchAnchorId="@+id/representativesRecyclerView"
             app:touchAnchorSide="top"
-            app:touchRegionId="@id/representative_recycler" />
+            app:touchRegionId="@id/representativesRecyclerView" />
 
         <KeyFrameSet>
             <KeyAttribute

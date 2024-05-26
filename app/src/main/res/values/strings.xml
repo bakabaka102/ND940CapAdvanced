@@ -15,6 +15,12 @@
     <string name="follow">Follow Election</string>
     <string name="unfollow">Unfollow Election</string>
     <string name="saved_elections">Saved Elections</string>
+    <string name="use_my_location">Use my location</string>
+    <string name="find_my_representatives">Find my Representatives</string>
+    <string name="city">City</string>
+    <string name="address_line_2">Address Line 2</string>
+    <string name="address_line_1">Address Line 1</string>
+    <string name="zip_code">Zip code</string>
 
 
 </resources>
