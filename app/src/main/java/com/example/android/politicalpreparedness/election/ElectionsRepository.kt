@@ -1,6 +1,5 @@
 package com.example.android.politicalpreparedness.election
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.android.politicalpreparedness.database.ElectionDatabase
@@ -13,9 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 
-class ElectionsRepository(application: Application) {
+class ElectionsRepository(private val database: ElectionDatabase) {
 
-    private val database: ElectionDatabase = ElectionDatabase.getInstance(application)
     val elections: LiveData<List<Election>> get() = database.electionDao.getAllElections()
     val savedElections: LiveData<List<Election>> get() = database.electionDao.getSavedElections()
 
@@ -41,7 +39,7 @@ class ElectionsRepository(application: Application) {
     }
 
     suspend fun insertElection(election: Election) {
-        LogUtils.i("Election.isSaved: ${election.saved}")
+        LogUtils.i("Election saved: ${election.saved}")
         withContext(Dispatchers.IO) {
             database.electionDao.insertElection(election)
         }

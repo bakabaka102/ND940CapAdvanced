@@ -11,6 +11,7 @@
     <string name="representative_www">%s web page</string>
     <string name="representative_no">%s from %s</string>
     <string name="saved_elections_header">Saved elections</string>
+    <string name="election_information">Election Information</string>
 
 
 </resources>

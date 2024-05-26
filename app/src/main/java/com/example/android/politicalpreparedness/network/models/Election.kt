@@ -21,5 +21,5 @@ data class Election(
     @Json(name = "ocdDivisionId")
     val division: Division,
     @ColumnInfo(name = "saved")
-    val saved: Boolean = false,
+    var saved: Boolean = false,
 ) : Parcelable

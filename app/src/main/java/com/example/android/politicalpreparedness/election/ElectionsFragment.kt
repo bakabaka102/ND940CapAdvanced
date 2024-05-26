@@ -22,22 +22,22 @@ class ElectionsFragment : BaseFragment<FragmentElectionBinding>() {
     }
 
     override fun initViews() {
-        //DONE: Populate recycler adapters
-
-        upcomingElectionAdapter = ElectionListAdapter(ElectionListener {
-            /*findNavController().navigate(
-                ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it)
-            )*/
-        }
+        upcomingElectionAdapter = ElectionListAdapter(
+            ElectionListener {
+                findNavController().navigate(
+                    ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it)
+                )
+            }
         )
 
         mFragmentBinding.upcomingElectionsRecyclerView.adapter = upcomingElectionAdapter
 
-        savedElectionAdapter = ElectionListAdapter(ElectionListener {
-           /* findNavController().navigate(
-                ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it)
-            )*/
-        })
+        savedElectionAdapter = ElectionListAdapter(
+            ElectionListener {
+                findNavController().navigate(
+                    ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it)
+                )
+            })
 
         mFragmentBinding.savedElectionsRecyclerView.adapter = savedElectionAdapter
 
@@ -50,7 +50,6 @@ class ElectionsFragment : BaseFragment<FragmentElectionBinding>() {
 
         mViewModel.savedElections.observe(viewLifecycleOwner) { elections ->
             elections?.apply {
-                //savedElectionAdapter.elections = elections
                 savedElectionAdapter.submitList(elections)
             }
         }
@@ -63,6 +62,4 @@ class ElectionsFragment : BaseFragment<FragmentElectionBinding>() {
     override fun initObservers() {
 
     }
-
-    // TODO: Refresh adapters when fragment loads
 }

@@ -10,15 +10,6 @@ import com.example.android.politicalpreparedness.network.models.Election
 @Dao
 interface ElectionDao {
 
-    //TODO: Add insert query
-
-    //TODO: Add select all election query
-
-    //TODO: Add select single election query
-
-    //TODO: Add delete query
-
-    //TODO: Add clear query
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertElections(elections: List<Election>)
 
