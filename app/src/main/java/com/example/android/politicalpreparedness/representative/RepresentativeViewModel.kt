@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.representative.model.Representative
@@ -32,6 +31,8 @@ class RepresentativeViewModel : ViewModel() {
 
     private val _errorMessage: MutableLiveData<String> = MutableLiveData()
     val errorMessage: LiveData<String> get() = _errorMessage
+    private val _isLoading: MutableLiveData<Boolean> = MutableLiveData()
+    val isLoading: LiveData<Boolean> get() = _isLoading
 
     /**
      *  The following code will prove helpful in constructing a representative from the API.
@@ -45,6 +46,7 @@ class RepresentativeViewModel : ViewModel() {
 
      */
     private fun loadRepresentatives(address: Address) {
+        _isLoading.value = true
         viewModelScope.launch {
             val (offices, officials) =
                 CivicsApi.retrofitService.getRepresentatives(address.toFormattedString())
@@ -57,6 +59,7 @@ class RepresentativeViewModel : ViewModel() {
                 LogUtils.d("Representative flatMap: $it")
             }
             _representatives.postValue(result)
+            _isLoading.value = false
         }
     }
 
@@ -72,7 +75,7 @@ class RepresentativeViewModel : ViewModel() {
             return
         }
         _line1.value = address.line1
-        _line2.value = address.line2.orEmpty()
+        _line2.value = address.line2
         _city.value = address.city
         _state.value = address.state
         _zip.value = address.zip

@@ -36,6 +36,7 @@
             android:id="@+id/address_line_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_20dp"
             android:autofillHints=""
             android:hint="@string/address_line_1"
             android:inputType="textPostalAddress"
@@ -49,6 +50,7 @@
             android:id="@+id/address_line_2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/dimen_20dp"
             android:autofillHints=""
             android:hint="@string/address_line_2"
             android:inputType="textPostalAddress"
@@ -62,6 +64,7 @@
             android:id="@+id/city"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_20dp"
             android:autofillHints=""
             android:hint="@string/city"
             android:inputType="textPostalAddress"
@@ -78,6 +81,7 @@
             stateValue="@{viewModel.state}"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/dimen_20dp"
             android:autofillHints=""
             android:entries="@array/states"
             android:inputType="textPostalAddress"
@@ -92,6 +96,7 @@
             android:id="@+id/zip"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_20dp"
             android:autofillHints=""
             android:hint="@string/zip_code"
             android:inputType="number"
@@ -131,13 +136,14 @@
         <!-- TODO: Add Representatives RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/representativesRecyclerView"
-
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/dimen_20dp"
             android:layout_marginBottom="@dimen/dimen_24dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_location" />
+            app:layout_constraintTop_toBottomOf="@id/button_location"
+            motion:layout_editor_absoluteX="20dp" />
         <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/list_placeholder"
@@ -150,5 +156,16 @@
             app:layout_constraintTop_toBottomOf="@id/representativeTitle"
             motion:visibilityMode="ignore"
             tools:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/loadingView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/representativesRecyclerView"
+            app:layout_constraintEnd_toEndOf="@+id/representativesRecyclerView"
+            app:layout_constraintStart_toStartOf="@+id/representativesRecyclerView"
+            app:layout_constraintTop_toTopOf="@id/representativesRecyclerView"
+            tools:visibility="visible" />
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

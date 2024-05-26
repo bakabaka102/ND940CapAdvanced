@@ -56,14 +56,14 @@ class RepresentativeFragment : BaseFragment<FragmentRepresentativeBinding>() {
         loadStates()
         /*mFragmentBinding.address =
             Address("Amphitheatre Parkway", "1600", "Mountain View", "California", "94043")*/
-        representativeAdapter = RepresentativeListAdapter(RepresentativeListener {
+        loadRecyclerView()
+    }
 
-        })
-        mFragmentBinding.representativesRecyclerView.adapter =
-            RepresentativeListAdapter(RepresentativeListener {})
+    private fun loadRecyclerView() {
+        representativeAdapter = RepresentativeListAdapter(RepresentativeListener { })
+        mFragmentBinding.representativesRecyclerView.adapter = representativeAdapter
         val linearLayoutManager = GridLayoutManager(requireActivity(), 1)
         mFragmentBinding.representativesRecyclerView.layoutManager = linearLayoutManager
-        //mFragmentBinding.representativesRecyclerView.adapter = representativeAdapter
     }
 
     private fun loadStates() {
@@ -102,6 +102,13 @@ class RepresentativeFragment : BaseFragment<FragmentRepresentativeBinding>() {
         }
         mViewModel.errorMessage.observe(viewLifecycleOwner) {
             Snackbar.make(mFragmentBinding.root, it, Snackbar.LENGTH_SHORT).show()
+        }
+        mViewModel.isLoading.observe(viewLifecycleOwner) {
+            if (it) {
+                mFragmentBinding.loadingView.visibility = View.VISIBLE
+            } else {
+                mFragmentBinding.loadingView.visibility = View.GONE
+            }
         }
     }
 
