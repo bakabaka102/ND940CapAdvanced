@@ -5,8 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.models.Election
-import com.example.android.politicalpreparedness.network.models.RepresentativeResponse
-import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
+import com.example.android.politicalpreparedness.network.models.State
 import com.example.android.politicalpreparedness.utils.LogUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -17,21 +16,17 @@ class ElectionsRepository(private val database: ElectionDatabase) {
     val elections: LiveData<List<Election>> get() = database.electionDao.getAllElections()
     val savedElections: LiveData<List<Election>> get() = database.electionDao.getSavedElections()
 
-
-    private val _voterInfo = MutableLiveData<VoterInfoResponse>()
-    val voterInfo: LiveData<VoterInfoResponse> get() = _voterInfo
-
-    val representatives = MutableLiveData<RepresentativeResponse>()
-
+    private val _electionInfo = MutableLiveData<State?>()
+    val electionInfo: LiveData<State?> get() = _electionInfo
 
     fun getElection(id: Int) = database.electionDao.getElectionById(id)
 
-    suspend fun getVoterInfo(electionId: Int, address: String) {
+    suspend fun getVoterInfo(address: String, electionId: Int) {
         try {
             withContext(Dispatchers.IO) {
                 val response =
-                    CivicsApi.retrofitService.getVoterInfo(address, electionId)/*.await()*/
-                _voterInfo.postValue(response)
+                    CivicsApi.retrofitService.getVoterInfo(address, electionId).state?.first()
+                _electionInfo.postValue(response)
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -57,7 +52,7 @@ class ElectionsRepository(private val database: ElectionDatabase) {
 
     private suspend fun loadElectionsAndSaveToDB() {
         val electionResponse = CivicsApi.retrofitService.getElections()/*.await()*/
-        database.electionDao.insertElections(electionResponse.elections)
+        //database.electionDao.insertElections(electionResponse.elections)
     }
 
 }

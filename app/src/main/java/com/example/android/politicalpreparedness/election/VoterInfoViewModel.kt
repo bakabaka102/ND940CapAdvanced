@@ -2,12 +2,16 @@ package com.example.android.politicalpreparedness.election
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.example.android.politicalpreparedness.database.ElectionDatabase
+import com.example.android.politicalpreparedness.network.models.AdministrationBody
 import com.example.android.politicalpreparedness.network.models.Election
+import com.example.android.politicalpreparedness.network.models.State
 import kotlinx.coroutines.launch
 
 class VoterInfoViewModel(private val application: Application) : AndroidViewModel(application) {
@@ -15,9 +19,19 @@ class VoterInfoViewModel(private val application: Application) : AndroidViewMode
     private val database = ElectionDatabase.getInstance(application)
     private val electionsRepository = ElectionsRepository(database)
 
-    val voterInfo = electionsRepository.voterInfo
+    val electionInfo: LiveData<State?> = electionsRepository.electionInfo
 
-    var Url = MutableLiveData<String>()
+    /*
+        private val _electionDetails: MutableLiveData<State?> = MutableLiveData()
+        val electionDetails: LiveData<State?> = Transformations.map(_electionDetails) {
+            when (it) {
+                is Result.Success -> it.data
+                else -> null
+            }
+        }
+    */
+
+    var url = MutableLiveData<String>()
 
     private val electionId = MutableLiveData<Int>()
     val election = electionId.switchMap { id ->
@@ -38,14 +52,14 @@ class VoterInfoViewModel(private val application: Application) : AndroidViewMode
         }
     }
 
-    fun getVoterInfo(electionId: Int, address: String) =
+    fun getVoterInfo(address: String, electionId: Int) =
         viewModelScope.launch {
-            electionsRepository.getVoterInfo(electionId, address)
+            electionsRepository.getVoterInfo(address, electionId)
         }
 
 
     fun intentUrl(url: String) {
-        Url.value = url
+        this.url.value = url
     }
 
 
