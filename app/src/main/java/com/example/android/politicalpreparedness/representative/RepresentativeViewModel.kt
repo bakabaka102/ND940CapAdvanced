@@ -12,8 +12,6 @@ import kotlinx.coroutines.launch
 
 class RepresentativeViewModel : ViewModel() {
 
-    //TODO: Establish live data for representatives and address
-    //TODO: Create function to fetch representatives from API from a provided address
     private val _representatives: MutableLiveData<List<Representative>> = MutableLiveData()
     val representatives: LiveData<List<Representative>> get() = _representatives
 
@@ -32,6 +30,9 @@ class RepresentativeViewModel : ViewModel() {
     val errorMessage: LiveData<String> get() = _errorMessage
     private val _isLoading: MutableLiveData<Boolean> = MutableLiveData()
     val isLoading: LiveData<Boolean> get() = _isLoading
+
+    private val _isHideKeyBoard: MutableLiveData<Boolean> = MutableLiveData()
+    val isHideKeyBoard: LiveData<Boolean> get() = _isHideKeyBoard
 
     /**
      *  The following code will prove helpful in constructing a representative from the API.
@@ -63,6 +64,7 @@ class RepresentativeViewModel : ViewModel() {
     }
 
     fun searchForMyRepresentatives() {
+        _isHideKeyBoard.postValue(true)
         searchRepresentativesValid(
             Address(line1.value!!, line2.value!!, city.value!!, state.value!!, zip.value!!)
         )
