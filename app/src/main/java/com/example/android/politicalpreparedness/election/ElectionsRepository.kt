@@ -19,14 +19,19 @@ class ElectionsRepository(private val database: ElectionDatabase) {
     private val _electionInfo = MutableLiveData<State?>()
     val electionInfo: LiveData<State?> get() = _electionInfo
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
     fun getElection(id: Int) = database.electionDao.getElectionById(id)
 
     suspend fun getVoterInfo(address: String, electionId: Int) {
+        _isLoading.postValue(true)
         try {
             withContext(Dispatchers.IO) {
                 val response =
                     CivicsApi.retrofitService.getVoterInfo(address, electionId).state?.first()
                 _electionInfo.postValue(response)
+                _isLoading.postValue(false)
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -43,16 +48,11 @@ class ElectionsRepository(private val database: ElectionDatabase) {
     suspend fun refreshElections() {
         try {
             withContext(Dispatchers.IO) {
-                loadElectionsAndSaveToDB()
+                CivicsApi.retrofitService.getElections()
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }
-
-    private suspend fun loadElectionsAndSaveToDB() {
-        val electionResponse = CivicsApi.retrofitService.getElections()/*.await()*/
-        //database.electionDao.insertElections(electionResponse.elections)
     }
 
 }

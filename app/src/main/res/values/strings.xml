@@ -22,6 +22,11 @@
     <string name="address_line_1">Address Line 1</string>
     <string name="zip_code">Zip code</string>
     <string name="representative_search">Representative Search</string>
+    <string name="state_location">State location</string>
+    <string name="state_ballot">State ballot</string>
+    <string name="state_correspondence">State correspondence</string>
+    <string name="address">Address</string>
+    <string name="voting_location">Voting location</string>
 
 
 </resources>
