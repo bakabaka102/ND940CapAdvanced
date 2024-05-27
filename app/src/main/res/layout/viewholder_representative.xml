@@ -23,9 +23,10 @@
         <ImageView
             android:id="@+id/representativePhoto"
             profileImage="@{representative.official.photoUrl}"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_margin="16dp"
+            android:layout_width="@dimen/dimen_64dp"
+            android:layout_height="@dimen/dimen_64dp"
+            android:layout_margin="@dimen/dimen_16dp"
+            android:contentDescription="@string/profile_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,37 +36,36 @@
             android:id="@+id/representativeTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginHorizontal="@dimen/dimen_8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:maxLines="1"
             android:text="@{representative.office.name}"
             android:textColor="?colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/representativePhoto"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_goneMarginEnd="16dp"
-            tools:text='@tools:sample/lorem[19]' />
+            app:layout_goneMarginEnd="@dimen/dimen_16dp"
+            tools:text='Test text' />
 
         <TextView
             android:id="@+id/representativeName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="@dimen/dimen_8dp"
             android:maxLines="1"
             android:text="@{representative.official.name}"
             app:layout_constraintEnd_toStartOf="@+id/facebookIcon"
             app:layout_constraintStart_toStartOf="@+id/representativeTitle"
             app:layout_constraintTop_toBottomOf="@+id/representativeTitle"
             app:layout_goneMarginEnd="16dp"
-            tools:text='@tools:sample/lorem[19]' />
+            tools:text='Test text' />
 
         <TextView
             android:id="@+id/representativeType"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="@dimen/dimen_8dp"
+            android:layout_marginBottom="@dimen/dimen_8dp"
             android:maxLines="1"
             android:text="@{representative.official.party}"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -73,13 +73,13 @@
             app:layout_constraintStart_toStartOf="@+id/representativeTitle"
             app:layout_constraintTop_toBottomOf="@+id/representativeName"
             app:layout_goneMarginEnd="16dp"
-            tools:text='@tools:sample/lorem[19]' />
+            tools:text='Test text' />
 
         <ImageView
             android:id="@+id/facebookIcon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="@dimen/dimen_48dp"
+            android:layout_height="@dimen/dimen_48dp"
+            android:layout_marginBottom="@dimen/dimen_8dp"
             android:contentDescription="@{@string/representative_fb(representative.official.name)}"
             android:foreground="?selectableItemBackground"
             android:padding="8dp"
@@ -92,12 +92,12 @@
 
         <ImageView
             android:id="@+id/twitterIcon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="@dimen/dimen_48dp"
+            android:layout_height="@dimen/dimen_48dp"
+            android:layout_marginBottom="@dimen/dimen_8dp"
             android:contentDescription="@{@string/representative_twitter(representative.official.name)}"
             android:foreground="?selectableItemBackgroundBorderless"
-            android:padding="8dp"
+            android:padding="@dimen/dimen_8dp"
             android:src="@drawable/ic_twitter"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -107,10 +107,10 @@
 
         <ImageView
             android:id="@+id/wwwIcon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="@dimen/dimen_48dp"
+            android:layout_height="@dimen/dimen_48dp"
+            android:layout_marginEnd="@dimen/dimen_16dp"
+            android:layout_marginBottom="@dimen/dimen_8dp"
             android:contentDescription="@{@string/representative_www(representative.official.name)}"
             android:foreground="?selectableItemBackgroundBorderless"
             android:padding="8dp"

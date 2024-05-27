@@ -2,13 +2,16 @@ package com.example.android.politicalpreparedness.representative
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.content.IntentSender
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
+import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.getSystemService
 import androidx.fragment.app.viewModels
@@ -20,9 +23,13 @@ import com.example.android.politicalpreparedness.databinding.FragmentRepresentat
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListener
+import com.example.android.politicalpreparedness.utils.LogUtils
 import com.example.android.politicalpreparedness.utils.isAccessFineLocation
+import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.OnTokenCanceledListener
@@ -50,11 +57,12 @@ class RepresentativeFragment : BaseFragment<FragmentRepresentativeBinding>() {
             }
         }
 
-    //TODO: Declare ViewModel
-    //TODO: Establish bindings
-    //TODO: Define and assign Representative adapter
-    //TODO: Populate Representative adapter
-    //TODO: Establish button listeners for field and location search
+    private val resultLauncherGPSTurnOn =
+        registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                turnOnGPSAndLocation()
+            }
+        }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -72,8 +80,6 @@ class RepresentativeFragment : BaseFragment<FragmentRepresentativeBinding>() {
 
     override fun initViews() {
         loadStates()
-        /*mFragmentBinding.address =
-            Address("Amphitheatre Parkway", "1600", "Mountain View", "California", "94043")*/
         loadRecyclerView()
     }
 
@@ -125,6 +131,11 @@ class RepresentativeFragment : BaseFragment<FragmentRepresentativeBinding>() {
                 mFragmentBinding.loadingView.visibility = View.GONE
             }
         }
+        mViewModel.isHideKeyBoard.observe(viewLifecycleOwner) {
+            if (it) {
+                hideKeyboard()
+            }
+        }
     }
 
     override fun layoutViewDataBinding(): Int = R.layout.fragment_representative
@@ -166,6 +177,41 @@ class RepresentativeFragment : BaseFragment<FragmentRepresentativeBinding>() {
             }.addOnFailureListener {
                 mFragmentBinding.loadingView.visibility = View.GONE
             }
+    }
+
+    private fun turnOnGPSAndLocation() {
+        val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 500)
+            .setWaitForAccurateLocation(false)
+            .setMinUpdateIntervalMillis(3000)
+            .setMaxUpdateDelayMillis(300)
+            .build()
+        val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
+        val settingsClient = LocationServices.getSettingsClient(mContext)
+        val locationSettingsResponseTask = settingsClient.checkLocationSettings(builder.build())
+        locationSettingsResponseTask.addOnFailureListener { exception ->
+            if (exception is ResolvableApiException) {
+                try {
+                    val intentSenderRequest =
+                        IntentSenderRequest.Builder(exception.resolution).build()
+                    resultLauncherGPSTurnOn.launch(intentSenderRequest)
+                } catch (ex: IntentSender.SendIntentException) {
+                    LogUtils.e("Error --- ${ex.message}")
+                }
+            } else {
+                Snackbar.make(
+                    mFragmentBinding.root,
+                    R.string.notify_location_required,
+                    Snackbar.LENGTH_INDEFINITE
+                ).setAction(android.R.string.ok) {
+                    turnOnGPSAndLocation()
+                }.show()
+            }
+        }
+        locationSettingsResponseTask.addOnCompleteListener {
+            if (it.isSuccessful) {
+                //geoCodeLocation()
+            }
+        }
     }
 
     private fun geoCodeLocation(location: Location): Address? {
