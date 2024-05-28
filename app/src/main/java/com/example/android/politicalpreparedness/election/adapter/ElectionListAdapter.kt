@@ -21,8 +21,9 @@ class ElectionListAdapter(private val clickListener: ElectionListener) :
         holder.bindDataToView(election, clickListener)
     }
 
-    class ElectionViewHolder(val binding: ViewholderElectionBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    class ElectionViewHolder(
+        private val binding: ViewholderElectionBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         companion object {
             fun from(parent: ViewGroup) = ElectionViewHolder(

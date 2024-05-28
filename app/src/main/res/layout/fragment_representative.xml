@@ -15,10 +15,12 @@
             type="com.example.android.politicalpreparedness.network.models.Address" />
     </data>
 
+    <!-- app:layoutDescription="@xml/representative_scene"-->
     <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motionLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        motion:ignore="MotionLayoutInvalidSceneFileReference">
+        app:layoutDescription="@xml/representative_scene">
 
         <TextView
             android:id="@+id/search_title"

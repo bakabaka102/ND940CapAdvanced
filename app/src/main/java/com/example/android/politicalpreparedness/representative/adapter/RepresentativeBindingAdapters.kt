@@ -13,10 +13,11 @@ import com.example.android.politicalpreparedness.representative.model.Representa
 @BindingAdapter("profileImage")
 fun fetchImage(view: ImageView, src: String?) {
     src?.let {
-        val uri = src.toUri().buildUpon().scheme("https").build()
+        val uri = it.toUri().buildUpon().scheme("https").build()
         Glide.with(view.context)
             .load(uri)
-            .placeholder(R.drawable.ballot_logo)
+            .error(R.drawable.ic_profile)
+            .placeholder(R.drawable.ic_profile)
             .into(view)
     }
 }

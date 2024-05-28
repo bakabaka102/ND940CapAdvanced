@@ -19,6 +19,9 @@ interface ElectionDao {
     @Query("SELECT * FROM election_table")
     fun getAllElections(): LiveData<List<Election>>
 
+    @Query("SELECT * FROM election_table ORDER BY electionDay ASC")
+    fun getAllElectionSorted(): List<Election>
+
     @Query("SELECT * FROM election_table where saved = 1")
     fun getSavedElections(): LiveData<List<Election>>
 

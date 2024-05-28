@@ -10,6 +10,7 @@ import com.example.android.politicalpreparedness.utils.LogUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
+import com.example.android.politicalpreparedness.utils.Result
 
 class ElectionsRepository(private val database: ElectionDatabase) {
 
@@ -46,12 +47,52 @@ class ElectionsRepository(private val database: ElectionDatabase) {
     }
 
     suspend fun refreshElections() {
-        try {
+        /*try {
             withContext(Dispatchers.IO) {
                 CivicsApi.retrofitService.getElections()
             }
         } catch (e: Exception) {
             e.printStackTrace()
+        }*/
+        try {
+            withContext(Dispatchers.IO) {
+                _isLoading.postValue(true)
+                val onlineElections: List<Election> =
+                    CivicsApi.retrofitService.getElections().elections.also {
+                        LogUtils.d("onlineElections: $it")
+                    }
+                val localElections: Result<List<Election>> = getElectionsSortedFromDB().also {
+                    LogUtils.d("localElections: $it")
+                }
+                database.electionDao.deleteAllElection()
+                if (localElections is Result.Success) {
+                    val savedLocalDB: List<Election> = localElections.data.filter { local ->
+                        local.saved
+                    }
+                    onlineElections.map { onlineElection ->
+                        onlineElection.copy(saved = savedLocalDB.firstOrNull {
+                            it.id == onlineElection.id
+                        }?.saved == true)
+                    }
+                } else {
+                    onlineElections
+                }.run {
+                    database.electionDao.insertElections(this)
+                    _isLoading.postValue(false)
+                }
+            }
+        } catch (ex: Exception) {
+            LogUtils.e("Error: ${ex.message}")
+        }
+    }
+
+    private suspend fun getElectionsSortedFromDB(): Result<List<Election>> {
+        return withContext(Dispatchers.IO) {
+            return@withContext try {
+                Result.Success(database.electionDao.getAllElectionSorted())
+            } catch (ex: Exception) {
+                Result.Failed(ex)
+            }
         }
     }
 
