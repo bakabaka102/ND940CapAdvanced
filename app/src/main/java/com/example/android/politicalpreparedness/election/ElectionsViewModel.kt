@@ -13,7 +13,6 @@ class ElectionsViewModel(application: Application) : AndroidViewModel(applicatio
     val upcomingElections = repository.elections
     val savedElections = repository.savedElections
 
-
     init {
         viewModelScope.launch {
             repository.refreshElections()

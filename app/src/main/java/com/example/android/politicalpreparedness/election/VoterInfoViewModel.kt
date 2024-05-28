@@ -12,7 +12,7 @@ import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.network.models.State
 import kotlinx.coroutines.launch
 
-class VoterInfoViewModel(private val application: Application) : AndroidViewModel(application) {
+class VoterInfoViewModel(application: Application) : AndroidViewModel(application) {
 
     private val database = ElectionDatabase.getInstance(application)
     private val electionsRepository = ElectionsRepository(database)
@@ -32,9 +32,8 @@ class VoterInfoViewModel(private val application: Application) : AndroidViewMode
 
 
     fun saveElection(election: Election) {
-        election.saved = !election.saved
         viewModelScope.launch {
-            electionsRepository.insertElection(election)
+            electionsRepository.insertElection(election.copy(saved = election.saved.not()))
         }
     }
 
