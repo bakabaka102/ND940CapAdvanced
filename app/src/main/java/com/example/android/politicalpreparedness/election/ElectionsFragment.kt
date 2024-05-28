@@ -1,6 +1,7 @@
 package com.example.android.politicalpreparedness.election
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.android.politicalpreparedness.R
@@ -41,6 +42,14 @@ class ElectionsFragment : BaseFragment<FragmentElectionBinding>() {
         mViewModel.savedElections.observe(viewLifecycleOwner) { elections ->
             elections?.apply {
                 savedElectionAdapter.submitList(elections)
+            }
+        }
+
+        mViewModel.isLoading.observe(viewLifecycleOwner) {
+            if (it) {
+                mFragmentBinding.loadingView.visibility = View.VISIBLE
+            } else {
+                mFragmentBinding.loadingView.visibility = View.GONE
             }
         }
     }

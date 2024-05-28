@@ -12,6 +12,7 @@ class ElectionsViewModel(application: Application) : AndroidViewModel(applicatio
     private val repository = ElectionsRepository(database)
     val upcomingElections = repository.elections
     val savedElections = repository.savedElections
+    val isLoading = repository.isLoading
 
     init {
         viewModelScope.launch {

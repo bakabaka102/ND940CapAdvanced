@@ -43,6 +43,17 @@
             app:layout_constraintBottom_toTopOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/upcoming_elections_title" />
 
+        <ProgressBar
+            android:id="@+id/loadingView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/upcoming_elections_recyclerView"
+            app:layout_constraintEnd_toEndOf="@id/upcoming_elections_recyclerView"
+            app:layout_constraintStart_toStartOf="@id/upcoming_elections_recyclerView"
+            app:layout_constraintTop_toTopOf="@id/upcoming_elections_recyclerView"
+            tools:visibility="visible" />
+
         <TextView
             android:id="@+id/saved_elections_title"
             style="@style/HeaderTextView"

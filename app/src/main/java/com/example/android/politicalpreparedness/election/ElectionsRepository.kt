@@ -56,23 +56,29 @@ class ElectionsRepository(private val database: ElectionDatabase) {
         }*/
         try {
             withContext(Dispatchers.IO) {
-                val onlineElections: List<Election> = CivicsApi.retrofitService.getElections().elections
-                val localElections: Result<List<Election>> = getElectionsSortedFromDB()
+                _isLoading.postValue(true)
+                val onlineElections: List<Election> =
+                    CivicsApi.retrofitService.getElections().elections.also {
+                        LogUtils.d("onlineElections: $it")
+                    }
+                val localElections: Result<List<Election>> = getElectionsSortedFromDB().also {
+                    LogUtils.d("localElections: $it")
+                }
                 database.electionDao.deleteAllElection()
                 if (localElections is Result.Success) {
-                    val saved: List<Election> = localElections.data.filter { local ->
+                    val savedLocalDB: List<Election> = localElections.data.filter { local ->
                         local.saved
                     }
                     onlineElections.map { onlineElection ->
-                        onlineElection.copy(saved = saved.firstOrNull {
+                        onlineElection.copy(saved = savedLocalDB.firstOrNull {
                             it.id == onlineElection.id
                         }?.saved == true)
                     }
                 } else {
                     onlineElections
                 }.run {
-                    onlineElections.map { it.copy(saved = false) }
-                    database.electionDao.insertElections(onlineElections)
+                    database.electionDao.insertElections(this)
+                    _isLoading.postValue(false)
                 }
             }
         } catch (ex: Exception) {
