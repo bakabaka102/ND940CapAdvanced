@@ -120,6 +120,7 @@ class RepresentativeFragment : BaseFragment<FragmentRepresentativeBinding>() {
     override fun initObservers() {
         mViewModel.representatives.observe(viewLifecycleOwner) { representatives ->
             representativeAdapter.submitList(representatives)
+            mFragmentBinding.motionLayout.transitionToEnd()
         }
         mViewModel.errorMessage.observe(viewLifecycleOwner) {
             Snackbar.make(mFragmentBinding.root, it, Snackbar.LENGTH_SHORT).show()
