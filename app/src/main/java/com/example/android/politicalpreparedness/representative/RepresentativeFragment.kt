@@ -235,4 +235,10 @@ class RepresentativeFragment : BaseFragment<FragmentRepresentativeBinding>() {
         imm?.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
+    override fun onStart() {
+        super.onStart()
+        LogUtils.d("onStart is called")
+        mViewModel.retrieveStateHandleData()
+    }
+
 }

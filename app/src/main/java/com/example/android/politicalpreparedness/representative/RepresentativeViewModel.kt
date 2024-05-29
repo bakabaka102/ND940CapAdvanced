@@ -2,6 +2,7 @@ package com.example.android.politicalpreparedness.representative
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android.politicalpreparedness.network.CivicsApi
@@ -10,7 +11,11 @@ import com.example.android.politicalpreparedness.representative.model.Representa
 import com.example.android.politicalpreparedness.utils.LogUtils
 import kotlinx.coroutines.launch
 
-class RepresentativeViewModel : ViewModel() {
+class RepresentativeViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
+
+    companion object {
+        const val KEY_STATE_REPRESENTATIVE = "representative"
+    }
 
     private val _representatives: MutableLiveData<List<Representative>> = MutableLiveData()
     val representatives: LiveData<List<Representative>> get() = _representatives
@@ -59,7 +64,23 @@ class RepresentativeViewModel : ViewModel() {
                 LogUtils.d("Representative flatMap: $it")
             }
             _representatives.postValue(result)
+            saveData(value = result)
             _isLoading.value = false
+        }
+    }
+
+    private fun saveData(key: String = KEY_STATE_REPRESENTATIVE, value: List<Representative>) {
+        savedStateHandle[key] = value
+    }
+
+    fun retrieveStateHandleData(key: String = KEY_STATE_REPRESENTATIVE) {
+        viewModelScope.launch {
+            savedStateHandle.getLiveData<List<Representative>>(key).apply {
+                if (this.value.isNullOrEmpty()) {
+                    return@apply
+                }
+                _representatives.postValue(this.value)
+            }
         }
     }
 
