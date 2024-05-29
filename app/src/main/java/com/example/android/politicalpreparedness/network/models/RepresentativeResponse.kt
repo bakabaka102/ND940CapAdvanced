@@ -1,8 +1,11 @@
 package com.example.android.politicalpreparedness.network.models
 
-import com.squareup.moshi.Json
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
+@Parcelize
 data class RepresentativeResponse(
-        val offices: List<Office>,
-        val officials: List<Official>
-)
+    val offices: @RawValue List<Office>,
+    val officials: @RawValue List<Official>
+) : Parcelable
